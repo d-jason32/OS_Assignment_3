@@ -18,7 +18,8 @@ int main() {
     int start,end;
     int arrsize = sizeof(arr)/sizeof(int);
     int min;
-    printf("array size: %d\n",arrsize);
+
+    printf("Array size: %d\n",arrsize);
     
     // Initialize pipe
     int fd[2];
@@ -26,7 +27,7 @@ int main() {
         return 1;
     }
 
-    // Fills array with random integers. 
+    // Fills array with random integers and prints each integer.
     for (size_t i = 0; i < arrsize; i++){
         arr[i] = rand() % 1000;
         printf("%d\n", arr[i]);
@@ -41,6 +42,7 @@ int main() {
         // Child process
         start=10;
         end= 19;
+        // Child process min initialized to first element of second half. 
         min = arr[10];
         printf("Child loop from index 10 to 19.\n");
     }
@@ -48,11 +50,14 @@ int main() {
         // Parent process
         start= 0;
         end = 9;
+        // Parent process min initialized to first element of first half. 
         min = arr[0];
         printf("Parent loop from  index 0 to 9.\n");
     }
     
+    // Each process iterates from start to the end. 
     for (int i = start;i <= end;i++){
+        // Checks if current index is less than current minimum. 
         if (min > arr[i]){
             min = arr[i];
         }

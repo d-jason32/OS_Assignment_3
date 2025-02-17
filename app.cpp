@@ -29,7 +29,7 @@ int main() {
 
     // Fills array with random integers and prints each integer.
     for (size_t i = 0; i < arrsize; i++){
-        arr[i] = rand() % 1000;
+        arr[i] = rand();
         printf("%d\n", arr[i]);
     }
 
@@ -67,6 +67,7 @@ int main() {
     
     if (id==0) {
         printf("Child's process id is  %d.\n",getpid());
+        // Writes value of min to the pipe.
         write(fd[1],&min,sizeof(min));
         close(fd[1]);
         }
@@ -74,6 +75,7 @@ int main() {
             printf("Parent's process id is  %d.\n",getpid());
             close(fd[1]);
             int childMin;
+            // Reads the value of the pipe and assigns it to childMin.
             read(fd[0], &childMin,sizeof(int));
             close(fd[0]);
             printf("Child minimum is %d\n", childMin);
